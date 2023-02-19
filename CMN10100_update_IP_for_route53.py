@@ -8,10 +8,16 @@ from dotenv import load_dotenv
 # .envファイルの内容を読み込見込む
 load_dotenv()
 
+DEBUG_=os.environ['DEBUG']
+
 AWS_HOST_ZONE_ID=os.environ['AWS_HOST_ZONE_ID']
 AWS_RECORD_NAME=os.environ['AWS_RECORD_NAME']
-AWS_ACCESS_KEY=os.environ['AWS_ACCESS_KEY']
-AWS_SECRET_ACCESS_KEY=os.environ['AWS_SECRET_ACCESS_KEY']
+if DEBUG_:
+    AWS_ACCESS_KEY=os.environ['AWS_ACCESS_KEY']
+    AWS_SECRET_ACCESS_KEY=os.environ['AWS_SECRET_ACCESS_KEY']
+else:
+    AWS_ACCESS_KEY=os.environ['AWS_ACCESS_KEY_DEV']
+    AWS_SECRET_ACCESS_KEY=os.environ['AWS_SECRET_ACCESS_KEY_DEV']  
 
 client = boto3.client('route53', aws_access_key_id=AWS_ACCESS_KEY, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
 
